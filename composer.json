@@ -6,7 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "panda/framework": ">=0.1"
+        "panda/framework": ">=0.1",
+        "php-di/php-di": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.1"
@@ -18,5 +19,6 @@
     },
     "config": {
         "preferred-install": "dist"
-    }
+    },
+    "minimum-stability": "dev"
 }
