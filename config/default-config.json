@@ -1,6 +1,10 @@
 {
-	"name":"default-config",
-	"type":"configuration",
-	"properties":{
-	}
+    "name": "default-config",
+    "type": "configuration",
+    "properties": {
+        "routes": {
+            "base_path": "/resources/routes/",
+            "base_file": "main.php"
+        }
+    }
 }
