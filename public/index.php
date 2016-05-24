@@ -21,10 +21,9 @@ $app = require_once(__DIR__.'/../init/app.php');
  * Run the application to get the request and return the appropriate
  * response. At this point we set the routes folder for the application to
  * handle the incoming request.
- * Default routes folder: /routes/
  */
 
-// Get the kernel handler
+// Handle the incoming request
 $kernel = $app->getService("kernel");
 
 /**
