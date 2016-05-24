@@ -7,15 +7,14 @@
  * @author   Ioannis Papikas <papikas.ioan@gmail.com>
  */
 
-use \Panda\Http\Request;
+use Panda\Http\Request;
 
 /**
  * Initialize the application including the application initializer.
  * The following line will initialize the autoloader and start
  * the application.
  */
-
-$app = require_once(__DIR__.'/../init/app.php');
+$app = require_once(__DIR__ . '/../init/app.php');
 
 /**
  * Run the application to get the request and return the appropriate
@@ -23,19 +22,19 @@ $app = require_once(__DIR__.'/../init/app.php');
  * handle the incoming request.
  */
 
-// Handle the incoming request
-$kernel = $app->getService("kernel");
+/**
+ * Make a kernel handler that will handle the incoming request.
+ */
+$kernel = $app->make(Panda\Contracts\Http\Kernel::class);
 
 /**
  * Handle the current request and get the generated
  * response from the routes.
  */
-$response = $kernel->handle($request = Request::get(), $routesFolder = "/routes/");
+$response = $kernel->handle($request = Request::capture());
 
 // Generate the response
 $response->send();
 
 // Close the connection
 $kernel->terminate($request, $response);
-
-?>
