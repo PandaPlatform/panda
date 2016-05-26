@@ -1,12 +1,11 @@
 <?php
 
-//use \Panda\
+use \Panda\Support\Facades\Route;
+use \Panda\Support\Facades\View;
 
 /**
- * Handle the incoming requests using the route handler.
+ * Handle the incoming requests using the application router.
  */
 Route::get("/", function() {
-    return RouteResponse::runView("index");
+    View::load("index");
 });
-
-?>

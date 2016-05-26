@@ -25,7 +25,7 @@ $app = require_once(__DIR__ . '/../init/app.php');
 /**
  * Make a kernel handler that will handle the incoming request.
  */
-$kernel = $app->make(Panda\Contracts\Http\Kernel::class);
+$kernel = $app->make(\Panda\Contracts\Http\Kernel::class);
 
 /**
  * Handle the current request and get the generated

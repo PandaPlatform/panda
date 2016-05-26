@@ -19,5 +19,3 @@ $app = new Panda\Foundation\Application(
  * Return the application to the caller to start the application.
  */
 return $app;
-
-?>
