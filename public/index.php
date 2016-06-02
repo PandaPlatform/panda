@@ -10,9 +10,15 @@
 use Panda\Http\Request;
 
 /**
+ * Initialize the application autoloader to take care of all
+ * automatic class loads through the entire application.
+ */
+$app = require_once(__DIR__ . '/../init/autoload.php');
+
+/**
  * Initialize the application including the application initializer.
- * The following line will initialize the autoloader and start
- * the application.
+ * This enables the application to capture requests and send back
+ * responses.
  */
 $app = require_once(__DIR__ . '/../init/app.php');
 
