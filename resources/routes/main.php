@@ -7,5 +7,5 @@ use \Panda\Support\Facades\View;
  * Handle the incoming requests using the application router.
  */
 Route::get("/", function() {
-    View::load("index")->out();
+    return View::load("index")->getOutput();
 });

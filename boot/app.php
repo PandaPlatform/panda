@@ -6,8 +6,7 @@
  */
 
 $app = new Panda\Foundation\Application(
-    $basePath = realpath(__DIR__ . '/../'),
-    $runtimeConfig = "default"
+    $basePath = realpath(__DIR__ . '/../')
 );
 
 /**

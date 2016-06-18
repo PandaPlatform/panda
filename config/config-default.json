@@ -1,0 +1,20 @@
+{
+    "name": "config-default",
+    "type": "configuration",
+    "environment": "default",
+    "paths": {
+        "source": {
+            "base_dir": "app"
+        },
+        "routes": {
+            "base_dir": "resources/routes",
+            "base_file": "main.php"
+        },
+        "views": {
+            "base_dir": "resources/views"
+        },
+        "lang": {
+            "base_dir": "resources/lang"
+        }
+    }
+}

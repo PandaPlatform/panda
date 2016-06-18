@@ -13,14 +13,14 @@ use Panda\Http\Request;
  * Initialize the application autoloader to take care of all
  * automatic class loads through the entire application.
  */
-$app = require_once(__DIR__ . '/../init/autoload.php');
+require_once(__DIR__ . '/../boot/autoload.php');
 
 /**
  * Initialize the application including the application initializer.
  * This enables the application to capture requests and send back
  * responses.
  */
-$app = require_once(__DIR__ . '/../init/app.php');
+$app = require_once(__DIR__ . '/../boot/app.php');
 
 /**
  * Run the application to get the request and return the appropriate
@@ -30,6 +30,8 @@ $app = require_once(__DIR__ . '/../init/app.php');
 
 /**
  * Make a kernel handler that will handle the incoming request.
+ *
+ * @type \Panda\Foundation\Http\Kernel $kernel
  */
 $kernel = $app->make(\Panda\Contracts\Http\Kernel::class);
 
