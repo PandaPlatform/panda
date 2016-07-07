@@ -15,6 +15,12 @@
         },
         "lang": {
             "base_dir": "resources/lang"
+        },
+        "logger": {
+            "base_dir": "storage/logs",
+            "debug": "debug.log",
+            "error": "error.log",
+            "max_files_count": 2
         }
     }
 }
