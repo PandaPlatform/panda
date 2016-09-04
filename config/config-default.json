@@ -25,5 +25,13 @@
             "error": "error.log",
             "max_files_count": 2
         }
+    },
+    "localization": {
+        "locale": {
+            "default_locale": "en_US"
+        },
+        "datetime": {
+            "default_timezone": "GMT"
+        }
     }
 }
