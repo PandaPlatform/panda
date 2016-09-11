@@ -1,11 +1,9 @@
 <?php
 
-use \Panda\Support\Facades\Route;
-use \Panda\Support\Facades\View;
+use App\Controllers\IndexController;
+use Panda\Support\Facades\Route;
 
 /**
  * Handle the incoming requests using the application router.
  */
-Route::get("/", function() {
-    return View::load("index")->getOutput();
-});
+Route::get("/", IndexController::class . '@index');
