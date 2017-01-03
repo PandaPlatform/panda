@@ -11,8 +11,6 @@
 
 namespace App\Controllers;
 
-use Panda\Http\Response;
-use Panda\Routing\Controller;
 use Panda\Support\Facades\View;
 
 /**
@@ -29,6 +27,6 @@ class IndexController extends BaseController
      */
     public function index()
     {
-        return View::load("index")->getOutput();
+        return View::load('index')->getOutput();
     }
 }
