@@ -1,10 +1,12 @@
 <?php
 
-/**
- * Panda Framework - The lightweight framework
+/*
+ * This file is part of the Panda framework.
  *
- * @package  PandaPlatform
- * @author   Ioannis Papikas <papikas.ioan@gmail.com>
+ * (c) Ioannis Papikas <papikas.ioan@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 use Panda\Http\Request;
@@ -13,14 +15,14 @@ use Panda\Http\Request;
  * Initialize the application autoloader to take care of all
  * automatic class loads through the entire application.
  */
-require_once(__DIR__ . '/../boot/autoload.php');
+require_once __DIR__ . '/../boot/autoload.php';
 
 /**
  * Initialize the application including the application initializer.
  * This enables the application to capture requests and send back
  * responses.
  */
-$app = require_once(__DIR__ . '/../boot/app.php');
+$app = require_once __DIR__ . '/../boot/app.php';
 
 /**
  * Run the application to get the request and return the appropriate
@@ -31,7 +33,7 @@ $app = require_once(__DIR__ . '/../boot/app.php');
 /**
  * Make a kernel handler that will handle the incoming request.
  *
- * @type \Panda\Foundation\Http\Kernel $kernel
+ * @var \Panda\Foundation\Http\Kernel $kernel
  */
 $kernel = $app->make(\Panda\Contracts\Http\Kernel::class);
 
