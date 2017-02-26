@@ -15,10 +15,7 @@ use Panda\Support\Facades\View;
 
 /**
  * Class IndexController
- *
  * @package App\Controllers
- *
- * @version 0.1
  */
 class IndexController extends BaseController
 {

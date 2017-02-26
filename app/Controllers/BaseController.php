@@ -11,16 +11,15 @@
 
 namespace App\Controllers;
 
+use InvalidArgumentException;
 use Panda\Http\Response;
 use Panda\Routing\Controller;
 use Panda\Support\Facades\View;
+use UnexpectedValueException;
 
 /**
  * Class BaseController
- *
  * @package App\Controllers
- *
- * @version 0.1
  */
 class BaseController extends Controller
 {
@@ -30,6 +29,8 @@ class BaseController extends Controller
      * @param int $statusCode
      *
      * @return mixed
+     * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
      */
     public function getPageByStatus($statusCode)
     {
@@ -40,5 +41,16 @@ class BaseController extends Controller
         return (new Response())
             ->setStatusCode($statusCode)
             ->setContent($output);
+    }
+
+    /**
+     * @param Response $response
+     *
+     * @return Response
+     */
+    public function finalizeResponse(Response $response)
+    {
+        // todo: implement this function to finalize response with data from the framework
+        return $response;
     }
 }

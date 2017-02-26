@@ -1,12 +1,16 @@
 {
     "name": "panda/panda",
     "description": "The Panda framework application.",
-    "keywords": ["framework", "panda"],
+    "keywords": [
+        "framework",
+        "panda"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "panda/framework": "~1.0"
+        "panda/framework": "~1.0",
+        "panda/ui": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.1"
