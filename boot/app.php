@@ -14,6 +14,11 @@ $app = new Panda\Foundation\Application(
 );
 
 /**
+ * Register application BootLoaders
+ */
+require 'registry.php';
+
+/**
  * Return the application to the caller to start the application.
  */
 return $app;
