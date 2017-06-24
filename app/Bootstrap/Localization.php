@@ -11,15 +11,15 @@
 
 namespace App\Bootstrap;
 
-use Panda\Config\ConfigurationParser;
-use Panda\Support\Configuration\Parsers\JsonParser;
+use Panda\Localization\FileProcessor;
+use Panda\Localization\Translation\JsonProcessor;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class BaseController
- * @package App\Controllers
+ * Class Localization
+ * @package App\Bootstrap
  */
-class Configuration extends AbstractBootLoader
+class Localization extends AbstractBootLoader
 {
     /**
      * Boot the BootLoader.
@@ -28,6 +28,6 @@ class Configuration extends AbstractBootLoader
      */
     public function boot($request)
     {
-        $this->getApp()->set(ConfigurationParser::class, \DI\object(JsonParser::class));
+        $this->getApp()->set(FileProcessor::class, \DI\object(JsonProcessor::class));
     }
 }
