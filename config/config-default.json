@@ -2,31 +2,26 @@
     "name": "config-default",
     "type": "configuration",
     "environment": "default",
-    "paths": {
-        "source": {
-            "base_dir": "app"
-        },
-        "routes": {
-            "base_dir": "resources/routes",
-            "base_file": "main.php"
-        },
-        "views": {
-            "base_dir": "resources/views"
-        },
-        "lang": {
-            "base_dir": "resources/lang"
-        },
-        "storage": {
-            "base_dir": "storage"
-        },
-        "logger": {
-            "base_dir": "logs",
-            "debug": "debug.log",
-            "error": "error.log",
-            "max_files_count": 2
-        }
+    "routes": {
+        "base_dir": "resources/routes",
+        "base_file": "main.php"
+    },
+    "views": {
+        "base_dir": "resources/views"
+    },
+    "storage": {
+        "base_dir": "storage",
+        "path_is_relative": true
+    },
+    "logger": {
+        "base_dir": "logs",
+        "path_is_relative": true,
+        "debug": "debug.log",
+        "error": "error.log",
+        "max_files_count": 2
     },
     "localization": {
+        "base_dir": "resources/translations",
         "locale": {
             "default_locale": "en_US"
         },
