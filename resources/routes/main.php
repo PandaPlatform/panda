@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use App\Controllers\IndexController;
+use App\Controllers\Pages\IndexController;
 use Panda\Support\Facades\Route;
 
 /**
