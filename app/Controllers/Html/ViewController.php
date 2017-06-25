@@ -9,23 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controllers;
+namespace App\Controllers\Html;
 
+use App\Controllers\BaseController;
 use Exception;
 use InvalidArgumentException;
-use Monolog\Logger;
 use Panda\Foundation\Application;
 use Panda\Localization\Translator;
 use Panda\Support\Facades\View;
+use Panda\Ui\Contracts\DOMBuilder;
 use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
 use Panda\Ui\Html\HTMLElement;
 use Psr\Log\LoggerInterface;
 
 /**
  * Class ViewController
- * @package App\Controllers
+ * @package App\Controllers\Html
  */
-class ViewController extends BaseController
+abstract class ViewController extends BaseController implements DOMBuilder
 {
     /**
      * @var HTMLElement
@@ -35,12 +36,12 @@ class ViewController extends BaseController
     /**
      * @var Translator
      */
-    private $translator;
+    protected $translator;
 
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    protected $logger;
 
     /**
      * ViewController constructor.
@@ -58,21 +59,49 @@ class ViewController extends BaseController
 
     /**
      * @param string $viewName
+     * @param string $id
+     * @param string $class
      *
      * @return $this
      * @throws Exception
      * @throws InvalidArgumentException
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     */
+    public function build($viewName = '', $id = '', $class = '')
+    {
+        // Create the View Container, if not any
+        if (empty($this->getViewContainer())) {
+            /** @var HTMLElement $viewElement */
+            $viewElement = $this->getApp()->make(HTMLElement::class, ['name' => 'div', 'value' => '', 'id' => $id, 'class' => $class]);
+            $this->setViewContainer($viewElement);
+        }
+
+        // Load view
+        $this->loadView($viewName);
+
+        // Translate content
+        $this->translate();
+
+        return $this;
+    }
+
+    /**
+     * @param string $viewName
+     *
+     * @return $this
+     * @throws Exception
      * @throws \DI\NotFoundException
      */
     protected function loadView($viewName)
     {
         // Check if view name is empty
         if (empty($viewName)) {
-            throw new InvalidArgumentException('The given view name is empty');
+            return $this;
         }
 
         // Load view html
-        $viewHtml = View::load($viewName)->getOutput();
+        $viewHtml = $this->getViewHtml($viewName);
 
         // Get HTMLHandler and append view
         /** @var HTMLHandlerInterface $HTMLHandler */
@@ -83,6 +112,17 @@ class ViewController extends BaseController
         $this->translate();
 
         return $this;
+    }
+
+    /**
+     * @param string $viewName
+     *
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    protected function getViewHtml($viewName)
+    {
+        return View::load($viewName)->getOutput();
     }
 
     /**
@@ -111,7 +151,7 @@ class ViewController extends BaseController
                 $translation = ($env == 'development' ? '**' : '') . $translation;
             } catch (Exception $ex) {
                 // Report to the logs that a translation is not found
-                $this->logger->log(Logger::ERROR, $ex->getMessage());
+                $this->getLogger()->error($ex->getMessage());
 
                 // Keep the node value as translation
                 $translation = $HTMLHandler->nodeValue($translatable);
@@ -163,5 +203,13 @@ class ViewController extends BaseController
     public function getTranslator(): Translator
     {
         return $this->translator;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger(): LoggerInterface
+    {
+        return $this->logger;
     }
 }
