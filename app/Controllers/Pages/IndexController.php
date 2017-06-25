@@ -9,21 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controllers;
+namespace App\Controllers\Pages;
 
-use Panda\Support\Facades\View;
+use App\Controllers\Html\PageController;
 
 /**
  * Class IndexController
  * @package App\Controllers
  */
-class IndexController extends BaseController
+class IndexController extends PageController
 {
     /**
-     * @return mixed
+     * @return string
+     * @throws \DI\NotFoundException
+     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function index()
     {
-        return View::load('index')->getOutput();
+        $this->build('Panda', 'index', '', 'container');
+
+        return $this->getPageResponse();
     }
 }
