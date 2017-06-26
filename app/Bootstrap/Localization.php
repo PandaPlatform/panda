@@ -11,8 +11,8 @@
 
 namespace App\Bootstrap;
 
-use Panda\Localization\FileProcessor;
-use Panda\Localization\Translation\JsonProcessor;
+use Panda\Localization\Processors\FileProcessor;
+use Panda\Localization\Processors\JsonProcessor;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

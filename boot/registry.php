@@ -16,7 +16,7 @@ $app = \Panda\Foundation\Application::getInstance();
 
 /** @var BootstrapRegistry $registry */
 $registry = $app->make(BootstrapRegistry::class);
-$registry->setBootLoaders([
+$registry->setItems([
     \App\Bootstrap\Configuration::class,
     \App\Bootstrap\Localization::class,
     \App\Bootstrap\HtmlEngine::class,

@@ -11,7 +11,7 @@
 
 namespace App\Bootstrap;
 
-use Panda\Config\ConfigurationParser;
+use Panda\Config\Parsers\ConfigurationParser;
 use Panda\Support\Configuration\Parsers\JsonParser;
 use Symfony\Component\HttpFoundation\Request;
 
