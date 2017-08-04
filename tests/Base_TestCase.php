@@ -45,19 +45,16 @@ class Base_TestCase extends PHPUnit_Framework_TestCase
     protected $request = null;
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     * It also sets up the test environment.
+     * {@inheritdoc}
      */
     protected function setUp()
     {
         // Initialize application
-        /** @var Application $app */
-        $app = require __DIR__ . '/../Boot/app.php';
+        $this->app = require __DIR__ . '/../Boot/app.php';
 
         // Set BootstrapRegistry
         /** @var BootstrapRegistry $registry */
-        $registry = $app->make(BootstrapRegistry::class);
+        $registry = $this->getApp()->make(BootstrapRegistry::class);
         $registryItems = $registry->getItems();
         $testingBootLoaders = [
             Environment::class,
@@ -70,7 +67,7 @@ class Base_TestCase extends PHPUnit_Framework_TestCase
         $registry->setItems(ArrayHelper::merge($registryItems, $testingBootLoaders));
 
         // Set environment and boot application
-        $app->setEnvironment($this->getEnvironment())->boot($this->getRequest(), $registry->getItems());
+        $this->getApp()->setEnvironment($this->getEnvironment())->boot($this->getRequest(), $registry->getItems());
 
         parent::setUp();
     }
