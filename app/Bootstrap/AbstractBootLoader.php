@@ -4,6 +4,7 @@ namespace App\Bootstrap;
 
 use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
+use Panda\Http\Request;
 
 /**
  * Class AbstractBootLoader
@@ -17,7 +18,7 @@ abstract class AbstractBootLoader implements BootLoader
     protected $app;
 
     /**
-     * AbstractBootstrapper constructor.
+     * AbstractBootLoader constructor.
      *
      * @param Application $app
      */
@@ -27,11 +28,9 @@ abstract class AbstractBootLoader implements BootLoader
     }
 
     /**
-     * Boot the bootstrapper.
-     *
-     * @param \Panda\Http\Request $request
+     * @param Request $request
      */
-    abstract public function boot($request);
+    abstract public function boot($request = null);
 
     /**
      * @return Application

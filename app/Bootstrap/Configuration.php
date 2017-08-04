@@ -22,11 +22,9 @@ use Symfony\Component\HttpFoundation\Request;
 class Configuration extends AbstractBootLoader
 {
     /**
-     * Boot the BootLoader.
-     *
      * @param Request $request
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         $this->getApp()->set(ConfigurationParser::class, \DI\object(JsonParser::class));
     }

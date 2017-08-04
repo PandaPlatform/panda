@@ -30,11 +30,9 @@ use Symfony\Component\HttpFoundation\Request;
 class HtmlEngine extends AbstractBootLoader
 {
     /**
-     * Boot the BootLoader.
-     *
      * @param Request $request
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         // Handlers
         $this->getApp()->set(DOMHandlerInterface::class, \DI\object(DOMHandler::class));

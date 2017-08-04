@@ -22,11 +22,9 @@ use Symfony\Component\HttpFoundation\Request;
 class Localization extends AbstractBootLoader
 {
     /**
-     * Boot the BootLoader.
-     *
      * @param Request $request
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         $this->getApp()->set(FileProcessor::class, \DI\object(JsonProcessor::class));
     }
