@@ -21,13 +21,13 @@ use Panda\Foundation\Application;
 use Panda\Foundation\Bootstrap\BootstrapRegistry;
 use Panda\Http\Request;
 use Panda\Support\Helpers\ArrayHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class Base_TestCase
  * @package Tests
  */
-class Base_TestCase extends PHPUnit_Framework_TestCase
+class Base_TestCase extends TestCase
 {
     /**
      * @var Application
@@ -45,7 +45,9 @@ class Base_TestCase extends PHPUnit_Framework_TestCase
     protected $request = null;
 
     /**
-     * {@inheritdoc}
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     * It also sets up the test environment.
      */
     protected function setUp()
     {
@@ -54,7 +56,7 @@ class Base_TestCase extends PHPUnit_Framework_TestCase
 
         // Set BootstrapRegistry
         /** @var BootstrapRegistry $registry */
-        $registry = $this->getApp()->make(BootstrapRegistry::class);
+        $registry = $this->getApp()->get(BootstrapRegistry::class);
         $registryItems = $registry->getItems();
         $testingBootLoaders = [
             Environment::class,
@@ -70,6 +72,26 @@ class Base_TestCase extends PHPUnit_Framework_TestCase
         $this->getApp()->setEnvironment($this->getEnvironment())->boot($this->getRequest(), $registry->getItems());
 
         parent::setUp();
+    }
+
+    /**
+     * @param string      $uri
+     * @param string      $method
+     * @param array       $parameters
+     * @param array       $cookies
+     * @param array       $files
+     * @param array       $server
+     * @param string|null $content
+     *
+     * @return Request
+     */
+    public function mockRequest($uri = '', $method = Request::METHOD_GET, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+    {
+        // Build request
+        $request = Request::create($uri, $method, $parameters, $cookies, $files, $server, $content);
+        $this->setRequest($request);
+
+        return $this->getRequest();
     }
 
     /**
