@@ -14,6 +14,8 @@
         "path_is_relative": true
     },
     "logger": {
+        "name": "panda",
+        "enabled": true,
         "base_dir": "logs",
         "path_is_relative": true,
         "debug": "debug.log",
