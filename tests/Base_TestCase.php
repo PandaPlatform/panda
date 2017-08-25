@@ -21,13 +21,13 @@ use Panda\Foundation\Application;
 use Panda\Foundation\Bootstrap\BootstrapRegistry;
 use Panda\Http\Request;
 use Panda\Support\Helpers\ArrayHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class Base_TestCase
  * @package Tests
  */
-class Base_TestCase extends PHPUnit_Framework_TestCase
+class Base_TestCase extends TestCase
 {
     /**
      * @var Application
@@ -52,12 +52,11 @@ class Base_TestCase extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Initialize application
-        /** @var Application $app */
-        $app = require __DIR__ . '/../Boot/app.php';
+        $this->app = require __DIR__ . '/../Boot/app.php';
 
         // Set BootstrapRegistry
         /** @var BootstrapRegistry $registry */
-        $registry = $app->make(BootstrapRegistry::class);
+        $registry = $this->getApp()->get(BootstrapRegistry::class);
         $registryItems = $registry->getItems();
         $testingBootLoaders = [
             Environment::class,
@@ -70,9 +69,29 @@ class Base_TestCase extends PHPUnit_Framework_TestCase
         $registry->setItems(ArrayHelper::merge($registryItems, $testingBootLoaders));
 
         // Set environment and boot application
-        $app->setEnvironment($this->getEnvironment())->boot($this->getRequest(), $registry->getItems());
+        $this->getApp()->setEnvironment($this->getEnvironment())->boot($this->getRequest(), $registry->getItems());
 
         parent::setUp();
+    }
+
+    /**
+     * @param string      $uri
+     * @param string      $method
+     * @param array       $parameters
+     * @param array       $cookies
+     * @param array       $files
+     * @param array       $server
+     * @param string|null $content
+     *
+     * @return Request
+     */
+    public function mockRequest($uri = '', $method = Request::METHOD_GET, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+    {
+        // Build request
+        $request = Request::create($uri, $method, $parameters, $cookies, $files, $server, $content);
+        $this->setRequest($request);
+
+        return $this->getRequest();
     }
 
     /**

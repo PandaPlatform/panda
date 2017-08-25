@@ -9,10 +9,23 @@
  * file that was distributed with this source code.
  */
 
-use App\Controllers\Pages\IndexController;
-use Panda\Support\Facades\Route;
+use App\Helpers\FileHelper;
 
 /**
- * Handle the incoming requests using the application router.
+ * Load all route files in the current folder.
+ *
+ * If you wish to extend this functionality, comment out the code
+ * below and add your own Routes.
  */
-Route::get('/', IndexController::class . '@index');
+
+// Get files in the current folder
+$files = FileHelper::getFilesInDirectory(__DIR__, true);
+foreach ($files as $filePath) {
+    // Skip current file
+    if (basename($filePath) == 'main.php') {
+        continue;
+    }
+
+    // Require route file
+    require $filePath;
+}

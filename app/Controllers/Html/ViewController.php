@@ -39,11 +39,6 @@ abstract class ViewController extends BaseController implements DOMBuilder
     protected $translator;
 
     /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * ViewController constructor.
      *
      * @param Application     $app
@@ -52,8 +47,7 @@ abstract class ViewController extends BaseController implements DOMBuilder
      */
     public function __construct(Application $app, LoggerInterface $logger, Translator $translator)
     {
-        parent::__construct($app);
-        $this->logger = $logger;
+        parent::__construct($app, $logger);
         $this->translator = $translator;
     }
 
@@ -203,13 +197,5 @@ abstract class ViewController extends BaseController implements DOMBuilder
     public function getTranslator(): Translator
     {
         return $this->translator;
-    }
-
-    /**
-     * @return LoggerInterface
-     */
-    public function getLogger(): LoggerInterface
-    {
-        return $this->logger;
     }
 }
