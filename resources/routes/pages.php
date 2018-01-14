@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use App\Controllers\Pages\IndexController;
+use App\Controllers\Pages\IndexPageController;
 use Panda\Support\Facades\Route;
 
-Route::get('/', IndexController::class . '@index');
+Route::get('/', IndexPageController::class . '@index');

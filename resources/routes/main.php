@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use App\Helpers\FileHelper;
+use App\Support\Helpers\FileHelper;
 
 /**
  * Load all route files in the current folder.
