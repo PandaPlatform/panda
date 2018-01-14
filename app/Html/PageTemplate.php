@@ -24,6 +24,8 @@ class PageTemplate extends HTMLPage
      * @param string $keywords
      *
      * @return $this
+     * @throws InvalidArgumentException
+     * @throws \Exception
      */
     public function build($title = '', $description = '', $keywords = '')
     {
@@ -33,11 +35,28 @@ class PageTemplate extends HTMLPage
         // Add head resources
         $this->addHeadResources();
 
+        // Set page ltr direction
+        $this->setPageDirection('ltr');
+
         return $this;
     }
 
     /**
-     * Add papge template head resources
+     * @param string $dir
+     *
+     * @throws InvalidArgumentException
+     * @throws \Exception
+     */
+    public function setPageDirection($dir = 'ltr')
+    {
+        $html = $this->selectElement('html')->item(0);
+        $this->getHTMLHandler()->attr($html, 'dir', $dir);
+    }
+
+    /**
+     * Add page template head resources
+     *
+     * @throws InvalidArgumentException
      */
     private function addHeadResources()
     {
@@ -51,7 +70,7 @@ class PageTemplate extends HTMLPage
         $this->addStyle('https://fonts.googleapis.com/css?family=Lato:100');
 
         // Add skeleton css
-        $this->addStyle("/assets/css/template.css");
+        $this->addStyle("/assets/panda/css/template.css");
     }
 
     /**
