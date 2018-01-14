@@ -11,16 +11,16 @@
 
 namespace App\Bootstrap;
 
-use Panda\Ui\Contracts\Factories\DOMFactoryInterface;
-use Panda\Ui\Contracts\Factories\HTMLFactoryInterface;
-use Panda\Ui\Contracts\Factories\HTMLFormFactoryInterface;
-use Panda\Ui\Contracts\Handlers\DOMHandlerInterface;
-use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
-use Panda\Ui\Factories\DOMFactory;
-use Panda\Ui\Factories\FormFactory;
-use Panda\Ui\Factories\HTMLFactory;
-use Panda\Ui\Handlers\DOMHandler;
-use Panda\Ui\Handlers\HTMLHandler;
+use Panda\Ui\Dom\Factories\DOMFactory;
+use Panda\Ui\Dom\Factories\DOMFactoryInterface;
+use Panda\Ui\Dom\Handlers\DOMHandler;
+use Panda\Ui\Dom\Handlers\DOMHandlerInterface;
+use Panda\Ui\Html\Factories\HTMLFactory;
+use Panda\Ui\Html\Factories\HTMLFactoryInterface;
+use Panda\Ui\Html\Factories\HTMLFormFactory;
+use Panda\Ui\Html\Factories\HTMLFormFactoryInterface;
+use Panda\Ui\Html\Handlers\HTMLHandler;
+use Panda\Ui\Html\Handlers\HTMLHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -41,6 +41,6 @@ class HtmlEngine extends AbstractBootLoader
         // Factories
         $this->getApp()->set(DOMFactoryInterface::class, \DI\object(DOMFactory::class));
         $this->getApp()->set(HTMLFactoryInterface::class, \DI\object(HTMLFactory::class));
-        $this->getApp()->set(HTMLFormFactoryInterface::class, \DI\object(FormFactory::class));
+        $this->getApp()->set(HTMLFormFactoryInterface::class, \DI\object(HTMLFormFactory::class));
     }
 }
