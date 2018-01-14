@@ -10,7 +10,8 @@
     "require": {
         "php": "^7.0",
         "panda/framework": "^2.0",
-        "panda/ui": "^2.0"
+        "panda/ui": "^3.0",
+        "panda/jar": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.3"
