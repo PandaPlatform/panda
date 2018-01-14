@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Support\Helpers;
 
 use Panda\Support\Helpers\ArrayHelper;
 
 /**
  * Class HttpHelper
- * @package App\Helpers
+ * @package App\Support\Helpers
  */
 class HttpHelper
 {

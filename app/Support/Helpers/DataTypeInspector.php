@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Support\Helpers;
 
 use ReflectionClass;
 use ReflectionProperty;
 
 /**
  * Class DataTypeInspector
- * @package App\Helpers
+ * @package App\Support\Helpers
  */
 class DataTypeInspector
 {

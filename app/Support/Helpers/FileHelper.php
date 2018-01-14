@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Support\Helpers;
 
 /**
  * Class FileHelper
- * @package App\Helpers
+ * @package App\Support\Helpers
  */
 class FileHelper
 {

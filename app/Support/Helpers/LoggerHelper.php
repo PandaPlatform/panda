@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Support\Helpers;
 
 use Panda\Log\Logger;
 use Psr\Log\LoggerInterface;
@@ -8,7 +8,7 @@ use Throwable;
 
 /**
  * Class LoggerHelper
- * @package App\Helpers
+ * @package App\Support\Helpers
  */
 class LoggerHelper
 {
