@@ -17,8 +17,9 @@ use InvalidArgumentException;
 use Panda\Foundation\Application;
 use Panda\Localization\Translator;
 use Panda\Support\Facades\View;
-use Panda\Ui\Contracts\DOMBuilder;
-use Panda\Ui\Contracts\Handlers\HTMLHandlerInterface;
+use Panda\Ui\Dom\DOMBuilder;
+use Panda\Ui\Html\Factories\HTMLFactory;
+use Panda\Ui\Html\Factories\HTMLFactoryInterface;
 use Panda\Ui\Html\HTMLElement;
 use Psr\Log\LoggerInterface;
 
@@ -26,7 +27,7 @@ use Psr\Log\LoggerInterface;
  * Class ViewController
  * @package App\Controllers\Html
  */
-abstract class ViewController extends BaseController implements DOMBuilder
+abstract class AbstractViewController extends BaseController implements DOMBuilder
 {
     /**
      * @var HTMLElement
@@ -39,16 +40,29 @@ abstract class ViewController extends BaseController implements DOMBuilder
     protected $translator;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @var HTMLFactory
+     */
+    protected $HTMLFactory;
+
+    /**
      * ViewController constructor.
      *
-     * @param Application     $app
-     * @param LoggerInterface $logger
-     * @param Translator      $translator
+     * @param Application          $app
+     * @param LoggerInterface      $logger
+     * @param Translator           $translator
+     * @param HTMLFactoryInterface $HTMLFactory
      */
-    public function __construct(Application $app, LoggerInterface $logger, Translator $translator)
+    public function __construct(Application $app, LoggerInterface $logger, Translator $translator, HTMLFactoryInterface $HTMLFactory)
     {
-        parent::__construct($app, $logger);
+        parent::__construct($app);
+        $this->logger = $logger;
         $this->translator = $translator;
+        $this->HTMLFactory = $HTMLFactory;
     }
 
     /**
@@ -58,24 +72,17 @@ abstract class ViewController extends BaseController implements DOMBuilder
      *
      * @return $this
      * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
      */
     public function build($viewName = '', $id = '', $class = '')
     {
         // Create the View Container, if not any
         if (empty($this->getViewContainer())) {
-            /** @var HTMLElement $viewElement */
-            $viewElement = $this->getApp()->make(HTMLElement::class, ['name' => 'div', 'value' => '', 'id' => $id, 'class' => $class]);
+            $viewElement = $this->getHTMLFactory()->buildHtmlElement('div', '', $id, $class);
             $this->setViewContainer($viewElement);
         }
 
         // Load view
         $this->loadView($viewName);
-
-        // Translate content
-        $this->translate();
 
         return $this;
     }
@@ -85,7 +92,6 @@ abstract class ViewController extends BaseController implements DOMBuilder
      *
      * @return $this
      * @throws Exception
-     * @throws \DI\NotFoundException
      */
     protected function loadView($viewName)
     {
@@ -98,9 +104,7 @@ abstract class ViewController extends BaseController implements DOMBuilder
         $viewHtml = $this->getViewHtml($viewName);
 
         // Get HTMLHandler and append view
-        /** @var HTMLHandlerInterface $HTMLHandler */
-        $HTMLHandler = $this->getApp()->get(HTMLHandlerInterface::class);
-        $HTMLHandler->innerHTML($this->getViewContainer(), $viewHtml);
+        $this->getHTMLFactory()->getHTMLHandler()->innerHTML($this->getViewContainer(), $viewHtml);
 
         // Translate view
         $this->translate();
@@ -122,16 +126,18 @@ abstract class ViewController extends BaseController implements DOMBuilder
     /**
      * Translate the current loaded view.
      *
-     * @throws \DI\NotFoundException
+     * @param HTMLElement $translationContainer
+     *
      * @throws Exception
+     * @throws InvalidArgumentException
      */
-    protected function translate()
+    protected function translate($translationContainer = null)
     {
-        /** @var HTMLHandlerInterface $HTMLHandler */
-        $HTMLHandler = $this->getApp()->get(HTMLHandlerInterface::class);
+        $HTMLHandler = $this->getHTMLFactory()->getHTMLHandler();
 
         // Get all translatable elements in the view
-        $translatables = $this->getViewContainer()->select('[data-translate]');
+        $translationContainer = $translationContainer ?: $this->getViewContainer();
+        $translatables = $translationContainer->select('[data-translate]');
         foreach ($translatables as $translatable) {
             // Get key
             $key = $HTMLHandler->attr($translatable, 'data-translate');
@@ -154,8 +160,9 @@ abstract class ViewController extends BaseController implements DOMBuilder
             // Apply translation
             $HTMLHandler->nodeValue($translatable, $translation);
 
-            // Remove translation key attribute
+            // Remove translation key attribute(s)
             $HTMLHandler->attr($translatable, 'data-translate', null);
+            $HTMLHandler->attr($translatable, 'data-translate-comment', null);
         }
     }
 
@@ -174,7 +181,7 @@ abstract class ViewController extends BaseController implements DOMBuilder
     /**
      * @return HTMLElement
      */
-    public function getViewContainer(): HTMLElement
+    public function getViewContainer()
     {
         return $this->viewContainer;
     }
@@ -182,7 +189,7 @@ abstract class ViewController extends BaseController implements DOMBuilder
     /**
      * @param HTMLElement $viewContainer
      *
-     * @return ViewController
+     * @return AbstractViewController
      */
     public function setViewContainer(HTMLElement $viewContainer)
     {
@@ -197,5 +204,21 @@ abstract class ViewController extends BaseController implements DOMBuilder
     public function getTranslator(): Translator
     {
         return $this->translator;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger(): LoggerInterface
+    {
+        return $this->logger;
+    }
+
+    /**
+     * @return HTMLFactory
+     */
+    public function getHTMLFactory(): HTMLFactory
+    {
+        return $this->HTMLFactory;
     }
 }

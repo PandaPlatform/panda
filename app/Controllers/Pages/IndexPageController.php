@@ -11,17 +11,16 @@
 
 namespace App\Controllers\Pages;
 
-use App\Controllers\Html\PageController;
+use App\Controllers\Html\Layouts\PlainLayoutViewController;
 
 /**
- * Class IndexController
- * @package App\Controllers
+ * Class IndexPageController
+ * @package App\Controllers\Pages
  */
-class IndexController extends PageController
+class IndexPageController extends PlainLayoutViewController
 {
     /**
      * @return string
-     * @throws \DI\NotFoundException
      * @throws \Exception
      * @throws \InvalidArgumentException
      */
