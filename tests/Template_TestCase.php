@@ -13,12 +13,13 @@ namespace Tests;
 
 /**
  * Class Template_TestCase
+ *
  * @package Tests
  */
 class Template_TestCase extends Base_TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @return void
      */
     public function testCase()
     {

@@ -25,6 +25,7 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Class ViewController
+ *
  * @package App\Controllers\Html
  */
 abstract class AbstractViewController extends BaseController implements DOMBuilder
@@ -104,7 +105,8 @@ abstract class AbstractViewController extends BaseController implements DOMBuild
         $viewHtml = $this->getViewHtml($viewName);
 
         // Get HTMLHandler and append view
-        $this->getHTMLFactory()->getHTMLHandler()->innerHTML($this->getViewContainer(), $viewHtml);
+        $viewContainer = $this->getViewContainer();
+        $this->getHTMLFactory()->getHTMLHandler()->innerHTML($viewContainer, $viewHtml);
 
         // Translate view
         $this->translate();

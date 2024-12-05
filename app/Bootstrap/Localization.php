@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class Localization
+ *
  * @package App\Bootstrap
  */
 class Localization extends AbstractBootLoader
@@ -26,6 +27,6 @@ class Localization extends AbstractBootLoader
      */
     public function boot($request = null)
     {
-        $this->getApp()->set(FileProcessor::class, \DI\object(JsonProcessor::class));
+        $this->getApp()->set(FileProcessor::class, \DI\get(JsonProcessor::class));
     }
 }

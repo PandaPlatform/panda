@@ -11,26 +11,15 @@
 
 namespace Tests;
 
-use Panda\Bootstrap\Environment;
-use Panda\Bootstrap\FacadeRegistry;
-use Panda\Bootstrap\Localization;
-use Panda\Bootstrap\Logging;
-use Panda\Bootstrap\Session;
-use Panda\Config\Configuration;
-use Panda\Foundation\Application;
-use Panda\Foundation\Bootstrap\BootstrapRegistry;
-use Panda\Http\Request;
-use Panda\Support\Helpers\ArrayHelper;
-use PHPUnit_Framework_TestCase;
-
 /**
  * Class TestCase
+ *
  * @package Tests
  */
 class TestCase extends Base_TestCase
 {
     /**
-     * @throws \PHPUnit_Framework_AssertionFailedError
+     * @return void
      */
     public function testCase()
     {

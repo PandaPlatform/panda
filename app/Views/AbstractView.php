@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Class AbstractView
+ *
  * @package App\Views
  */
 abstract class AbstractView implements DOMBuilder
@@ -103,7 +104,8 @@ abstract class AbstractView implements DOMBuilder
         $viewHtml = $this->getViewHtml($viewName);
 
         // Append view to view container
-        $this->getHTMLHandler()->innerHTML($this->getViewContainer(), $viewHtml);
+        $viewContainer = $this->getViewContainer();
+        $this->getHTMLHandler()->innerHTML($viewContainer, $viewHtml);
 
         // Translate view
         $this->translate();

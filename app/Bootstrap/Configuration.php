@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class BaseController
+ *
  * @package App\Controllers
  */
 class Configuration extends AbstractBootLoader
@@ -26,6 +27,6 @@ class Configuration extends AbstractBootLoader
      */
     public function boot($request = null)
     {
-        $this->getApp()->set(ConfigurationParser::class, \DI\object(JsonParser::class));
+        $this->getApp()->set(ConfigurationParser::class, \DI\get(JsonParser::class));
     }
 }

@@ -49,7 +49,7 @@ class Base_TestCase extends TestCase
      * This method is called before a test is executed.
      * It also sets up the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         // Initialize application
         $this->app = require __DIR__ . '/../Boot/app.php';
