@@ -9,7 +9,7 @@
     "type": "project",
     "require": {
         "php": "^8.3",
-        "panda/framework": "dev-master",
+        "panda/framework": "^3.0",
         "panda/ui": "^5.0",
         "panda/jar": "^4.0"
     },
